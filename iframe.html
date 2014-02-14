@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="angularInIframeApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  </head>
+  <body>
+
+    <ng-view></ng-view>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.js"></script>
+
+    <script>
+
+    angular.module('angularInIframeApp', ['ngRoute'])
+      .config(function($routeProvider, $provide) {
+        $routeProvider
+          .when('/route1', {
+            template: '<div>this is route 1, <a href="#/route2">&gt;route2</a></div>'
+          })
+          .when('/route2', {
+            template: '<div>this is route 2, <a href="#/route3">&gt;route3</a></div>'
+          })
+          .when('/route3', {
+            template: '<div>this is route 3</div>'
+          })
+          .otherwise({
+            redirectTo: '/route1'
+          });
+
+        // Uncomment this to make history work under IE
+        // $provide.decorator('$sniffer', function($delegate) {
+        //   $delegate.history = false;
+        //   return $delegate;
+        // });
+      })
+    </script>
+
+  </body>
+</html>
